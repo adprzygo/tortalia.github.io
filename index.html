@@ -18,7 +18,7 @@
         body { font-family: 'Inter', sans-serif; }
         .font-serif { font-family: 'Playfair+Display', serif; }
         
-        /* Smooth scrolling */
+        /* Smooth scrolling for anchors */
         html { scroll-behavior: smooth; }
 
         .animate-in {
@@ -153,6 +153,7 @@
                         )}
                     </nav>
 
+                    {/* Sekcja Home */}
                     <section id="home" className="pt-32 pb-20 px-4">
                         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
                             <div className="flex-1 space-y-6">
@@ -166,11 +167,13 @@
                             </div>
                             <div className="flex-1 relative">
                                 <div className="absolute -inset-4 bg-rose-200 rounded-[2rem] rotate-3 blur-sm opacity-50"></div>
-                                <img src="c33f613f-3f44-4f9a-b2c4-b610d64a3c10.jfif" className="relative rounded-[2rem] shadow-2xl w-full object-cover aspect-[4/5]" alt="Tortalia - Tort z misiem" />
+                                {/* Naprawione zdjęcie główne - Tort z misiem */}
+                                <img src="c33f613f-3f44-4f9a-b2c4-b610d64a3c10.jfif" className="relative rounded-[2rem] shadow-2xl w-full object-cover aspect-[4/5]" alt="Tortalia - Nasza specjalność" />
                             </div>
                         </div>
                     </section>
 
+                    {/* Sekcja O mnie */}
                     <section id="o-mnie" className="py-20 bg-white text-center">
                         <div className="max-w-6xl mx-auto px-4">
                             <Icon name="Heart" className="text-rose-400 mb-6" size={48} />
@@ -182,6 +185,7 @@
                         </div>
                     </section>
 
+                    {/* Sekcja Smaki */}
                     <section id="smaki" className="py-20 bg-rose-50">
                         <div className="max-w-6xl mx-auto px-4">
                             <h2 className="text-4xl font-serif font-bold text-center mb-16 underline decoration-rose-200 underline-offset-8">Nasze Menu Smaków</h2>
@@ -190,7 +194,7 @@
                                     <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition-all group">
                                         <div className="relative overflow-hidden h-64">
                                             <img src={flavor.image} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" alt={flavor.title} />
-                                            <div className="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-bold uppercase text-rose-500 tracking-wider shadow-sm">{flavor.tag}</div>
+                                            <div className="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold uppercase text-rose-500 tracking-wider shadow-sm">{flavor.tag}</div>
                                         </div>
                                         <div className="p-6">
                                             <h3 className="text-xl font-bold mb-3 group-hover:text-rose-500 transition-colors">{flavor.title}</h3>
@@ -205,6 +209,7 @@
                         </div>
                     </section>
 
+                    {/* Sekcja Kontakt */}
                     <section id="kontakt" className="py-20 bg-white">
                         <div className="max-w-6xl mx-auto px-4">
                             <div className="bg-rose-50/50 rounded-[3rem] p-8 lg:p-20 flex flex-col lg:flex-row gap-12 border border-rose-100 shadow-sm relative overflow-hidden text-center sm:text-left">
@@ -253,6 +258,7 @@
                                         </div>
                                     ) : (
                                         <form className="space-y-4" onSubmit={handleSubmit}>
+                                            <input type="hidden" name="_subject" value="Nowe zapytanie o tort - Tortalia" />
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <input required name="name" type="text" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" placeholder="Imię i Nazwisko" />
                                                 <input required name="email" type="email" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" placeholder="Twój adres e-mail" />
@@ -262,11 +268,6 @@
                                                 <input required name="date" type="date" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white text-gray-400 shadow-sm" />
                                             </div>
                                             <textarea required name="message" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" rows="4" placeholder="Opisz swój wymarzony tort (okazja, ilość osób, smak)..."></textarea>
-                                            {formStatus === 'error' && (
-                                                <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100 animate-in">
-                                                    Wystąpił problem. Spróbuj oznaczyć wiadomość w Formspree jako "Not Spam" i wyłącz reCAPTCHA w ustawieniach Formspree.
-                                                </div>
-                                            )}
                                             <button disabled={formStatus === 'sending'} type="submit" className={`w-full bg-rose-500 text-white font-bold py-5 rounded-xl shadow-lg shadow-rose-200 transition-all active:scale-95 flex items-center justify-center gap-2 ${formStatus === 'sending' ? 'opacity-70 cursor-not-allowed' : 'hover:bg-rose-600 hover:-translate-y-0.5'}`}>
                                                 {formStatus === 'sending' ? 'Wysyłanie...' : 'Zapisz się już dziś!'}
                                             </button>
@@ -287,14 +288,10 @@
                                 <p className="text-white font-serif italic text-2xl mb-3 leading-tight">Podaruj swoim najbliższym to, co najsłodsze.</p>
                                 <p className="text-[11px] uppercase tracking-[0.4em] font-medium opacity-60">Spraw prezent, który wywoła prawdziwy uśmiech.</p>
                             </div>
-                            <div className="flex justify-center gap-8">
+                            <div className="flex gap-8 justify-center">
                                 <a href="https://instagram.com/_tortalia" target="_blank" className="hover:text-rose-400 transition-colors transform hover:scale-110"><Icon name="Instagram" size={24} /></a>
-                                <div className="flex flex-col items-center">
-                                    <span className="text-rose-400 text-xs italic font-serif">Pasja & Smak</span>
-                                    <div className="w-10 h-0.5 bg-rose-400/30 mt-1"></div>
-                                </div>
                             </div>
-                            <div className="pt-10 border-t border-gray-800/50 text-[10px] uppercase tracking-[0.25em] font-semibold opacity-30 text-center">
+                            <div className="pt-10 border-t border-gray-800/50 text-center text-[10px] uppercase tracking-[0.2em] opacity-30">
                                 &copy; 2025 Tortalia. Wszystkie prawa zastrzeżone.
                             </div>
                         </div>
