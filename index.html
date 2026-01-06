@@ -1,2 +1,294 @@
-<h1>Witaj na stronie Tortalia!</h1>
-<p>Moja pierwsza strona na GitHubie działa.</p>
+import React, { useState, useEffect } from 'react';
+import { Cake, Instagram, Mail, Phone, MapPin, ChevronRight, Star, Heart, Menu, X } from 'lucide-react';
+
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('home');
+
+  const flavors = [
+    {
+      title: "Strawberry Oreo",
+      description: "Puszysty biszkopt czekoladowy, krem Oreo, konfitura truskawkowa oraz egzotyczny curd z marakui.",
+      image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&q=80&w=800",
+      tag: "Klasyk"
+    },
+    {
+      title: "Pistachio Lover",
+      description: "Intensywny biszkopt pistacjowy, delikatny mus pistacjowy i domowa konfitura malinowa.",
+      image: "https://images.unsplash.com/photo-1535231544450-b4125c86c0bd?auto=format&fit=crop&q=80&w=800",
+      tag: "Premium"
+    },
+    {
+      title: "White Bueno",
+      description: "Biszkopt czekoladowy przełożony kremem Kinder Bueno White z chrupiącą wkładką i coulis malinowym.",
+      image: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&q=80&w=800",
+      tag: "Dla dzieci"
+    },
+    {
+      title: "Lemon Fresh",
+      description: "Jasny biszkopt maślany, orzeźwiający krem cytrynowy, curd z cytryny i świeże maliny.",
+      image: "https://images.unsplash.com/photo-1519340333755-50852443e797?auto=format&fit=crop&q=80&w=800",
+      tag: "Orzeźwiający"
+    }
+  ];
+
+  const testimonials = [
+    { name: "Anna K.", text: "Najlepszy tort jaki kiedykolwiek jadłam! Smak Pistachio Lover to po prostu poezja." },
+    { name: "Marek J.", text: "Piękny wygląd i niesamowity smak. Goście weselni byli zachwyceni Strawberry Oreo." }
+  ];
+
+  const scrollToSection = (id) => {
+    setActiveTab(id);
+    setIsMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen bg-rose-50 font-sans text-gray-800">
+      {/* Navigation */}
+      <nav className="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div className="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection('home')}>
+            <Cake className="text-rose-400 w-8 h-8" />
+            <span className="text-2xl font-serif font-bold text-rose-500 tracking-tight">Tortalia</span>
+          </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8 font-medium">
+            {['home', 'smaki', 'o-mnie', 'kontakt'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => scrollToSection(tab)}
+                className={`capitalize transition-colors hover:text-rose-500 ${activeTab === tab ? 'text-rose-500 underline decoration-2 underline-offset-8' : ''}`}
+              >
+                {tab.replace('-', ' ')}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Toggle */}
+          <button className="md:hidden text-rose-500" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t border-rose-100 flex flex-col p-4 gap-4 animate-in slide-in-from-top">
+            {['home', 'smaki', 'o-mnie', 'kontakt'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => scrollToSection(tab)}
+                className="capitalize text-lg font-medium p-2"
+              >
+                {tab.replace('-', ' ')}
+              </button>
+            ))}
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="pt-32 pb-20 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+          <div className="flex-1 space-y-6">
+            <span className="inline-block px-4 py-1 bg-rose-200 text-rose-700 rounded-full text-sm font-bold uppercase tracking-widest">
+              Słodkie chwile na zamówienie
+            </span>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-gray-900 leading-tight">
+              Tortalia <br />
+              <span className="text-rose-400">Wyjątkowe smaki</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-lg leading-relaxed">
+              Tworzę z pasji do cukiernictwa i miłości do perfekcyjnych tortów – takich, które zachwycają nie tylko wyglądem, ale przede wszystkim niezapomnianym smakiem.
+            </p>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => scrollToSection('smaki')}
+                className="bg-rose-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-rose-200 hover:bg-rose-600 transition-all transform hover:-translate-y-1"
+              >
+                Zobacz ofertę
+              </button>
+              <button 
+                onClick={() => scrollToSection('kontakt')}
+                className="bg-white border-2 border-rose-200 text-rose-500 px-8 py-4 rounded-xl font-bold hover:bg-rose-50 transition-all"
+              >
+                Złóż zamówienie
+              </button>
+            </div>
+          </div>
+          <div className="flex-1 relative">
+            <div className="absolute -inset-4 bg-rose-200 rounded-[2rem] rotate-3 blur-sm opacity-50"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&q=80&w=800" 
+              alt="Tort artystyczny" 
+              className="relative rounded-[2rem] shadow-2xl w-full object-cover aspect-[4/5]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="o-mnie" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <Heart className="w-12 h-12 text-rose-400 mx-auto mb-6" />
+          <h2 className="text-4xl font-serif font-bold mb-8">Witaj w moim słodkim świecie!</h2>
+          <div className="max-w-3xl mx-auto text-lg text-gray-600 space-y-4 leading-relaxed">
+            <p>
+              Cześć! Nazywam się Monika i dziękuję, że odwiedziłaś moją stronę. 
+              Moja przygoda z cukiernictwem zaczęła się od marzenia o tworzeniu tortów, 
+              które będą sercem każdej ważnej uroczystości.
+            </p>
+            <p>
+              Każdy przepis, który znajdziesz w mojej ofercie, to efekt setek testów i niekończącej się chęci 
+              tworzenia coraz lepszych słodkości. Stawiam na naturalne składniki: prawdziwe masło, 
+              belgijską czekoladę i świeże owoce.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Flavors Grid */}
+      <section id="smaki" className="py-20 bg-rose-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-serif font-bold mb-4">Moje Menu Smaków</h2>
+            <p className="text-gray-600">Odkryj kompozycje, które podbiły serca moich klientów</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {flavors.map((flavor, index) => (
+              <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-xl shadow-rose-100/50 group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <div className="relative h-64">
+                  <img src={flavor.image} alt={flavor.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-rose-500 uppercase">
+                    {flavor.tag}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-3">{flavor.title}</h3>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                    {flavor.description}
+                  </p>
+                  <button className="flex items-center text-rose-500 font-bold text-sm gap-1 hover:gap-2 transition-all">
+                    Szczegóły smaku <ChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-rose-500 text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="flex justify-center gap-1 mb-8">
+            {[1, 2, 3, 4, 5].map((s) => <Star key={s} fill="currentColor" className="w-6 h-6 text-rose-200" />)}
+          </div>
+          <div className="relative">
+            <p className="text-2xl md:text-3xl font-serif italic mb-8 leading-relaxed">
+              "{testimonials[0].text}"
+            </p>
+            <span className="text-rose-100 font-bold uppercase tracking-widest">— {testimonials[0].name}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="kontakt" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-rose-50">
+            <div className="lg:w-1/2 p-12 lg:p-20 bg-rose-50/50">
+              <h2 className="text-4xl font-serif font-bold mb-8">Umów się na degustację</h2>
+              <p className="text-gray-600 mb-12">
+                Planujesz wesele, urodziny lub chrzciny? Napisz do mnie, a wspólnie stworzymy projekt Twojego wymarzonego tortu.
+              </p>
+              
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white rounded-2xl shadow-md flex items-center justify-center text-rose-400">
+                    <Phone size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-400 uppercase font-bold">Zadzwoń do mnie</p>
+                    <a href="tel:793942929" className="font-bold hover:text-rose-500 transition-colors">793 942 929</a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white rounded-2xl shadow-md flex items-center justify-center text-rose-400">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-400 uppercase font-bold">Napisz e-mail</p>
+                    <a href="mailto:pracownia@tortalia.pl" className="font-bold hover:text-rose-500 transition-colors">pracownia@tortalia.pl</a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 bg-white rounded-2xl shadow-md flex items-center justify-center text-rose-400 group-hover:bg-rose-500 group-hover:text-white transition-all">
+                    <a href="https://instagram.com/_tortalia" target="_blank" rel="noopener noreferrer">
+                      <Instagram size={20} />
+                    </a>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-400 uppercase font-bold">Instagram</p>
+                    <a href="https://instagram.com/_tortalia" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-rose-500 transition-colors">_tortalia</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="lg:w-1/2 p-12 lg:p-20">
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Imię i Nazwisko</label>
+                    <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-rose-200 outline-none" placeholder="Twoje imię..." />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Telefon</label>
+                    <input type="tel" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-rose-200 outline-none" placeholder="+48..." />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Data uroczystości</label>
+                  <input type="date" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-rose-200 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Twoja wiadomość</label>
+                  <textarea rows="4" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-rose-200 outline-none" placeholder="Jaki smak i styl tortu Cię interesuje?"></textarea>
+                </div>
+                <button className="w-full bg-rose-500 text-white font-bold py-5 rounded-2xl shadow-lg shadow-rose-200 hover:bg-rose-600 transition-all">
+                  Wyślij zapytanie
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 bg-gray-900 text-gray-400 border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-2">
+            <Cake className="text-rose-400 w-6 h-6" />
+            <span className="text-xl font-serif font-bold text-white tracking-tight">Tortalia</span>
+          </div>
+          <div className="text-center md:text-left">
+            <p className="text-white font-serif italic text-lg mb-1">Podaruj swoim najbliższym to, co najsłodsze.</p>
+            <p className="text-xs uppercase tracking-widest">Spraw prezent, który wywoła uśmiech na ich twarzach.</p>
+          </div>
+          <div className="flex gap-6">
+            <a href="https://instagram.com/_tortalia" target="_blank" rel="noopener noreferrer" className="hover:text-rose-400 transition-colors"><Instagram size={20} /></a>
+            <a href="#" className="hover:text-rose-400 transition-colors font-bold tracking-tighter italic">Pasja & Smak</a>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 mt-8 pt-8 border-t border-gray-800/50 text-center text-[10px] uppercase tracking-[0.2em] opacity-50">
+          © 2025 Tortalia. Inspirowane przepisami Moniki Kotowskiej.
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
