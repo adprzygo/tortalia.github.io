@@ -29,9 +29,9 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Sparkle animation for AI elements */
+        /* Sparkle animation for AI elements - Pistachio/Green version */
         .sparkle-text {
-            background: linear-gradient(90deg, #f43f5e, #fb7185, #fda4af, #f43f5e);
+            background: linear-gradient(90deg, #15803d, #22c55e, #86efac, #15803d);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -42,7 +42,7 @@
         }
     </style>
 </head>
-<body class="bg-rose-50">
+<body class="bg-green-50">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -81,6 +81,15 @@
             const [isAiLoading, setIsAiLoading] = useState(false);
             const [aiError, setAiError] = useState(null);
 
+            // Dane nawigacji
+            const navLinks = [
+                { id: 'home', label: 'Home' },
+                { id: 'torty', label: 'Torty' },
+                { id: 'slodkosci', label: 'Słodkości' },
+                { id: 'o-mnie', label: 'O mnie' },
+                { id: 'kontakt', label: 'Kontakt' }
+            ];
+
             const flavors = [
                 {
                     title: "Strawberry Oreo",
@@ -105,6 +114,39 @@
                     description: "Jasny biszkopt, krem śmietankowy, krem cytrynowy i świeże maliny.",
                     image: "https://images.unsplash.com/photo-1519340333755-50852443e797?auto=format&fit=crop&q=80&w=800",
                     tag: "Orzeźwiający"
+                }
+            ];
+
+            const sweets = [
+                {
+                    title: "Tartaletki",
+                    description: "Kruche babeczki wypełnione aksamitnym ganache lub kremem pâtissière, udekorowane świeżymi owocami i jadalnymi kwiatami.",
+                    image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&q=80&w=800",
+                    tag: "Bankietowe"
+                },
+                {
+                    title: "Monoporcje",
+                    description: "Małe dzieła sztuki. Nowoczesne desery musowe w różnych kształtach, pokryte lśniącą polewą (mirror glaze) lub zamszem.",
+                    image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&q=80&w=800",
+                    tag: "Eleganckie"
+                },
+                {
+                    title: "Ptysie (Choux)",
+                    description: "Delikatne ciasto parzone z chrupiącą kruszonką (craquelin), wypełnione po brzegi kremem waniliowym, pistacjowym lub owocowym.",
+                    image: "https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&q=80&w=800",
+                    tag: "Francuskie"
+                },
+                {
+                    title: "Cakesicles",
+                    description: "Urocze ciastka na patyku w kształcie lodów. W środku wilgotne ciasto połączone z kremem, oblane najlepszą belgijską czekoladą.",
+                    image: "https://images.unsplash.com/photo-1563546736294-f25cb8788a4c?auto=format&fit=crop&q=80&w=800",
+                    tag: "Dla dzieci"
+                },
+                {
+                    title: "Domowe Ciasta",
+                    description: "Tradycyjne wypieki w nowoczesnym wydaniu: serniki, brownie, tarty i bezy, które smakują jak w domu, ale wyglądają jak z żurnala.",
+                    image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&q=80&w=800",
+                    tag: "Rodzinne"
                 }
             ];
 
@@ -196,33 +238,33 @@
             };
 
             return (
-                <div className="min-h-screen text-gray-800">
+                <div className="min-h-screen text-gray-800 font-sans">
                     {/* Nawigacja */}
                     <nav className="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
                         <div className="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
                             <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection('home')}>
-                                <Icon name="Cake" className="text-rose-400" size={32} />
-                                <span className="text-2xl font-serif font-bold text-rose-500 tracking-tight">Tortalia</span>
+                                <Icon name="Cake" className="text-green-600" size={32} />
+                                <span className="text-2xl font-serif font-bold text-green-700 tracking-tight">Tortalia</span>
                             </div>
                             <div className="hidden md:flex gap-8 font-medium">
-                                {['home', 'smaki', 'o-mnie', 'kontakt'].map((tab) => (
+                                {navLinks.map((link) => (
                                     <button 
-                                        key={tab} 
-                                        onClick={() => scrollToSection(tab)} 
-                                        className={`capitalize transition-colors hover:text-rose-500 ${activeTab === tab ? 'text-rose-500 underline decoration-2 underline-offset-8' : ''}`}
+                                        key={link.id} 
+                                        onClick={() => scrollToSection(link.id)} 
+                                        className={`capitalize transition-colors hover:text-green-600 ${activeTab === link.id ? 'text-green-600 underline decoration-2 underline-offset-8' : 'text-gray-600'}`}
                                     >
-                                        {tab.replace('-', ' ')}
+                                        {link.label}
                                     </button>
                                 ))}
                             </div>
-                            <button className="md:hidden text-rose-500" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                            <button className="md:hidden text-green-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                                 <Icon name={isMenuOpen ? "X" : "Menu"} size={28} />
                             </button>
                         </div>
                         {isMenuOpen && (
-                            <div className="md:hidden bg-white border-t border-rose-100 flex flex-col p-4 gap-4 animate-in">
-                                {['home', 'smaki', 'o-mnie', 'kontakt'].map((tab) => (
-                                    <button key={tab} onClick={() => scrollToSection(tab)} className="capitalize text-lg font-medium p-2 text-left">{tab.replace('-', ' ')}</button>
+                            <div className="md:hidden bg-white border-t border-green-100 flex flex-col p-4 gap-4 animate-in">
+                                {navLinks.map((link) => (
+                                    <button key={link.id} onClick={() => scrollToSection(link.id)} className="capitalize text-lg font-medium p-2 text-left text-green-700">{link.label}</button>
                                 ))}
                             </div>
                         )}
@@ -232,35 +274,34 @@
                     <section id="home" className="pt-32 pb-20 px-4">
                         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
                             <div className="flex-1 space-y-6">
-                                <span className="inline-block px-4 py-1 bg-rose-200 text-rose-700 rounded-full text-sm font-bold uppercase tracking-widest italic">Słodkie chwile na zamówienie</span>
-                                <h1 className="text-5xl md:text-7xl font-serif font-bold text-gray-900 leading-tight">Tortalia <br/><span className="text-rose-400">Wyjątkowe smaki</span></h1>
-                                <p className="text-lg text-gray-600 max-w-lg">Tworzę z pasji do cukiernictwa i miłości do perfekcyjnych tortów – takich, które zachwycają nie tylko wyglądem, ale przede wszystkim smakiem.</p>
+                                <span className="inline-block px-4 py-1 bg-green-100 text-green-800 rounded-full text-sm font-bold uppercase tracking-widest italic">Słodkie chwile na zamówienie</span>
+                                <h1 className="text-5xl md:text-7xl font-serif font-bold text-gray-900 leading-tight">Tortalia <br/><span className="text-green-600">Wyjątkowe smaki</span></h1>
+                                <p className="text-lg text-gray-600 max-w-lg">Tworzone z pasji, pieczone z sercem.</p>
                                 <div className="flex gap-4">
-                                    <button onClick={() => scrollToSection('smaki')} className="bg-rose-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-rose-600 transition-all transform hover:-translate-y-1">Zobacz ofertę</button>
-                                    <button onClick={() => scrollToSection('kontakt')} className="bg-white border-2 border-rose-200 text-rose-500 px-8 py-4 rounded-xl font-bold hover:bg-rose-50 transition-all">Złóż zamówienie</button>
+                                    <button onClick={() => scrollToSection('torty')} className="bg-green-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-green-200 hover:bg-green-700 transition-all transform hover:-translate-y-1">Zobacz ofertę</button>
+                                    <button onClick={() => scrollToSection('kontakt')} className="bg-white border-2 border-green-200 text-green-700 px-8 py-4 rounded-xl font-bold hover:bg-green-50 transition-all">Złóż zamówienie</button>
                                 </div>
                             </div>
                             <div className="flex-1 relative">
-                                <div className="absolute -inset-4 bg-rose-200 rounded-[2rem] rotate-3 blur-sm opacity-50"></div>
-                                {/* ZMIANA: Zdjęcie misio.jpg (upewnij się co do rozszerzenia pliku na GitHubie!) */}
-                                <img src="misio.jpg" className="relative rounded-[2rem] shadow-2xl w-full object-cover aspect-[4/5]" alt="Tortalia - Nasza specjalność" />
+                                <div className="absolute -inset-4 bg-green-100 rounded-[2rem] rotate-3 blur-sm opacity-50"></div>
+                                <img src="misio.jpg" className="relative rounded-[2rem] shadow-2xl w-full object-cover aspect-[4/5]" alt="Tortalia - Zdjęcie główne" />
                             </div>
                         </div>
                     </section>
 
                     {/* AI Magic Section - AI Kreator Słodkości */}
-                    <section className="py-20 bg-gradient-to-br from-rose-50 to-white">
+                    <section className="py-20 bg-gradient-to-br from-green-50 to-white">
                         <div className="max-w-4xl mx-auto px-4 text-center">
-                            <div className="inline-flex items-center gap-2 mb-4 px-4 py-1 rounded-full bg-white border border-rose-100 shadow-sm">
-                                <Icon name="Sparkles" className="text-rose-400" size={16} />
-                                <span className="text-xs font-bold text-rose-500 uppercase tracking-widest">Wirtualny Asystent</span>
+                            <div className="inline-flex items-center gap-2 mb-4 px-4 py-1 rounded-full bg-white border border-green-100 shadow-sm">
+                                <Icon name="Sparkles" className="text-green-500" size={16} />
+                                <span className="text-xs font-bold text-green-600 uppercase tracking-widest">Wirtualny Asystent</span>
                             </div>
                             <h2 className="text-4xl font-serif font-bold mb-6 sparkle-text">AI Kreator Słodkości ✨</h2>
                             <p className="text-gray-600 mb-10 max-w-2xl mx-auto">
                                 Nie wiesz jaki smak wybrać? Opisz nam okazję, ulubione składniki lub styl uroczystości, a nasza sztuczna inteligencja zaproponuje coś unikalnego specjalnie dla Ciebie!
                             </p>
                             
-                            <div className="bg-white p-2 rounded-2xl shadow-xl shadow-rose-100 flex flex-col md:flex-row gap-2 mb-8">
+                            <div className="bg-white p-2 rounded-2xl shadow-xl shadow-green-100 flex flex-col md:flex-row gap-2 mb-8">
                                 <input 
                                     value={aiInput}
                                     onChange={(e) => setAiInput(e.target.value)}
@@ -271,7 +312,7 @@
                                 <button 
                                     onClick={generateAiSuggestion}
                                     disabled={isAiLoading}
-                                    className="bg-rose-500 text-white px-8 py-4 rounded-xl font-bold text-xl transition-all hover:bg-rose-600 disabled:bg-rose-300 flex items-center justify-center gap-2"
+                                    className="bg-green-600 text-white px-8 py-4 rounded-xl font-bold text-xl transition-all hover:bg-green-700 disabled:bg-green-300 flex items-center justify-center gap-2"
                                 >
                                     {isAiLoading ? <Icon name="Loader2" className="animate-spin" /> : <Icon name="MagicWand" />}
                                     {isAiLoading ? 'Mieszamy smaki...' : 'Zaproponuj smak ✨'}
@@ -279,11 +320,11 @@
                             </div>
 
                             {aiSuggestion && (
-                                <div className="bg-white p-8 rounded-3xl border border-rose-100 shadow-sm text-left animate-in relative overflow-hidden">
+                                <div className="bg-white p-8 rounded-3xl border border-green-100 shadow-sm text-left animate-in relative overflow-hidden">
                                     <div className="absolute top-0 right-0 p-4 opacity-5">
                                         <Icon name="Cake" size={120} />
                                     </div>
-                                    <h3 className="text-rose-500 font-bold text-lg mb-3 flex items-center gap-2">
+                                    <h3 className="text-green-600 font-bold text-lg mb-3 flex items-center gap-2">
                                         <Icon name="Stars" size={20} /> Propozycja Twojego Tortu:
                                     </h3>
                                     <div className="text-gray-700 leading-relaxed whitespace-pre-line font-medium italic">
@@ -294,9 +335,9 @@
                                             const contactSection = document.getElementById('kontakt');
                                             contactSection.scrollIntoView({ behavior: 'smooth' });
                                         }}
-                                        className="mt-6 text-rose-500 font-bold flex items-center gap-2 hover:underline"
+                                        className="mt-6 text-green-600 font-bold flex items-center gap-2 hover:underline"
                                     >
-                                        Chcę zamówić ten tort <Icon name="ArrowRight" size={16} />
+                                        Zapytaj o ofertę <Icon name="ArrowRight" size={16} />
                                     </button>
                                 </div>
                             )}
@@ -311,35 +352,34 @@
                     <section id="o-mnie" className="py-20 bg-white">
                         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
                             <div className="flex-1 hidden md:block">
-                                {/* Zdjęcie misio.jpg również tutaj dla spójności */}
-                                <img src="misio.jpg" className="rounded-full w-80 h-80 object-cover shadow-2xl border-8 border-rose-50 mx-auto" alt="Natalia - Tortalia" />
+                                <img src="misio.jpg" className="rounded-full w-80 h-80 object-cover shadow-2xl border-8 border-green-50 mx-auto" alt="Natalia - Tortalia" />
                             </div>
                             <div className="flex-1 text-center md:text-left">
-                                <Icon name="Heart" className="text-rose-400 mb-6" size={48} />
+                                <Icon name="Heart" className="text-green-500 mb-6" size={48} />
                                 <h2 className="text-4xl font-serif font-bold mb-8">Witaj w moim słodkim świecie!</h2>
                                 <div className="text-lg text-gray-600 space-y-6">
-                                    <p>Cześć! Nazywam się Natalia. Moja przygoda z cukiernictwem zaczęła się od marzenia o tworzeniu tortów, które będą sercem każdej ważnej uroczystości.</p>
-                                    <p>Każdy wypiek, który wychodzi z mojej pracowni, powstaje z najwyższej jakości składników: prawdziwego masła, szlachetnej czekolady i najświeższych owoców.</p>
+                                    <p>Cześć, Mam na imię Natalia. Moja przygoda z tortami zaczęła się od chęci tworzenia pysznych wypieków dla rodziny i przyjaciół.</p>
+                                    <p>Z czasem pasja przerodziła się w coś więcej. Dziś tworzę torty na zamówienie dla wszystkich, którzy chcą uczcić ważne chwile wyjątkowym smakiem i wyglądem.</p>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* Sekcja Smaki - Tytuł "Moje torty" */}
-                    <section id="smaki" className="py-20 bg-rose-50">
+                    {/* Sekcja Torty (dawniej Smaki) */}
+                    <section id="torty" className="py-20 bg-green-50">
                         <div className="max-w-6xl mx-auto px-4">
-                            <h2 className="text-4xl font-serif font-bold text-center mb-16 underline decoration-rose-200 underline-offset-8">Moje torty</h2>
+                            <h2 className="text-4xl font-serif font-bold text-center mb-16 underline decoration-green-300 underline-offset-8">Moje torty</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                                 {flavors.map((flavor, i) => (
-                                    <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-xl hover:-translate-y-2 transition-all group">
+                                    <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-xl shadow-green-100 hover:-translate-y-2 transition-all group">
                                         <div className="relative h-64">
                                             <img src={flavor.image} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" alt={flavor.title} />
-                                            <div className="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold uppercase text-rose-500 tracking-wider shadow-sm">{flavor.tag}</div>
+                                            <div className="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold uppercase text-green-600 tracking-wider shadow-sm">{flavor.tag}</div>
                                         </div>
                                         <div className="p-6">
-                                            <h3 className="text-xl font-bold mb-3 group-hover:text-rose-500 transition-colors">{flavor.title}</h3>
+                                            <h3 className="text-xl font-bold mb-3 group-hover:text-green-600 transition-colors">{flavor.title}</h3>
                                             <p className="text-sm text-gray-600 mb-6 leading-relaxed">{flavor.description}</p>
-                                            <div className="flex items-center text-rose-400 font-bold text-xs uppercase tracking-wider">
+                                            <div className="flex items-center text-green-500 font-bold text-xs uppercase tracking-wider">
                                                 Szczegóły smaku <Icon name="ChevronRight" size={14} className="ml-1" />
                                             </div>
                                         </div>
@@ -349,67 +389,89 @@
                         </div>
                     </section>
 
-                    {/* Sekcja Kontakt - Formularz z polem email */}
-                    <section id="kontakt" className="py-20 bg-white">
+                    {/* NOWA Sekcja Słodkości */}
+                    <section id="slodkosci" className="py-20 bg-white">
                         <div className="max-w-6xl mx-auto px-4">
-                            <div className="bg-rose-50/50 rounded-[3rem] p-8 lg:p-20 flex flex-col lg:flex-row gap-12 border border-rose-100 shadow-sm relative overflow-hidden">
-                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-rose-200/20 rounded-full blur-3xl"></div>
+                            <h2 className="text-4xl font-serif font-bold text-center mb-16 underline decoration-green-300 underline-offset-8">Słodkości & Słodki Stół</h2>
+                            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto text-lg">Uzupełnij swoje przyjęcie o wyjątkowe mniejsze desery, które zachwycą Twoich gości.</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                                {sweets.map((sweet, i) => (
+                                    <div key={i} className="bg-green-50 rounded-[2rem] overflow-hidden shadow-lg border border-green-100 hover:shadow-2xl transition-all group">
+                                        <div className="relative h-60 overflow-hidden">
+                                            <img src={sweet.image} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" alt={sweet.title} />
+                                            <div className="absolute bottom-4 right-4 bg-white/90 px-4 py-2 rounded-xl text-sm font-bold text-gray-800 shadow-sm">{sweet.tag}</div>
+                                        </div>
+                                        <div className="p-8">
+                                            <h3 className="text-2xl font-serif font-bold mb-3 text-gray-800">{sweet.title}</h3>
+                                            <p className="text-gray-600 leading-relaxed">{sweet.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Sekcja Kontakt - Formularz z polem email */}
+                    <section id="kontakt" className="py-20 bg-green-50">
+                        <div className="max-w-6xl mx-auto px-4">
+                            <div className="bg-white rounded-[3rem] p-8 lg:p-20 flex flex-col lg:flex-row gap-12 border border-green-100 shadow-xl relative overflow-hidden">
+                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-green-100 rounded-full blur-3xl"></div>
                                 <div className="lg:w-1/2 relative z-10">
-                                    <h2 className="text-4xl font-serif font-bold mb-8 text-center sm:text-left">Umów się na degustację</h2>
+                                    <h2 className="text-4xl font-serif font-bold mb-8 text-center sm:text-left">Zarezerwuj termin już teraz</h2>
                                     <div className="space-y-8">
                                         <div className="flex items-center gap-5 group justify-center sm:justify-start">
-                                            <div className="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-rose-400 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                            <div className="w-12 h-12 bg-green-50 rounded-2xl shadow-sm flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
                                                 <Icon name="Phone" size={24} />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] uppercase font-bold text-gray-400 mb-1 tracking-widest">Zadzwoń do mnie</p>
-                                                <a href="tel:793942929" className="font-bold text-xl hover:text-rose-500 transition-colors tracking-tight">793 942 929</a>
+                                                <a href="tel:793942929" className="font-bold text-xl hover:text-green-600 transition-colors tracking-tight">793 942 929</a>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-5 group justify-center sm:justify-start">
-                                            <div className="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-rose-400 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                            <div className="w-12 h-12 bg-green-50 rounded-2xl shadow-sm flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
                                                 <Icon name="Mail" size={24} />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] uppercase font-bold text-gray-400 mb-1 tracking-widest">Napisz wiadomość</p>
-                                                <a href="mailto:nataliatortalia@gmail.com" className="font-bold text-xl hover:text-rose-500 transition-colors tracking-tight text-xs sm:text-xl text-wrap break-all">nataliatortalia@gmail.com</a>
+                                                <a href="mailto:nataliatortalia@gmail.com" className="font-bold text-xl hover:text-green-600 transition-colors tracking-tight text-xs sm:text-xl text-wrap break-all">nataliatortalia@gmail.com</a>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-5 group justify-center sm:justify-start">
-                                            <div className="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-rose-400 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                            <div className="w-12 h-12 bg-green-50 rounded-2xl shadow-sm flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
                                                 <Icon name="Instagram" size={24} />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] uppercase font-bold text-gray-400 mb-1 tracking-widest">Instagram</p>
-                                                <a href="https://instagram.com/_tortalia" target="_blank" className="font-bold text-xl hover:text-rose-500 transition-colors tracking-tight">_tortalia</a>
+                                                <a href="https://instagram.com/_tortalia" target="_blank" className="font-bold text-xl hover:text-green-600 transition-colors tracking-tight">_tortalia</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="lg:w-1/2 relative z-10 mt-12 lg:mt-0">
                                     {formStatus === 'success' ? (
-                                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-rose-100 text-center animate-in">
-                                            <div className="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <div className="bg-green-50 p-8 rounded-3xl border border-green-100 text-center animate-in">
+                                            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                                 <Icon name="Check" size={32} />
                                             </div>
-                                            <h3 className="text-2xl font-serif font-bold mb-2 text-rose-500">Wiadomość wysłana!</h3>
-                                            <p className="text-gray-600 mb-6 font-medium">Sprawdzamy termin i powrócimy z wyceną najszybciej jak to możliwe.</p>
-                                            <button onClick={() => setFormStatus('')} className="text-rose-400 font-bold underline underline-offset-4 hover:text-rose-600 transition-colors">Wyślij kolejną wiadomość</button>
+                                            <h3 className="text-2xl font-serif font-bold mb-2 text-green-700">Wiadomość wysłana!</h3>
+                                            <p className="text-green-600 mb-6 font-medium">Sprawdzamy termin i powrócimy z wyceną najszybciej jak to możliwe.</p>
+                                            <button onClick={() => setFormStatus('')} className="text-green-600 font-bold underline underline-offset-4 hover:text-green-800 transition-colors">Wyślij kolejną wiadomość</button>
                                         </div>
                                     ) : (
                                         <form className="space-y-4" onSubmit={handleSubmit}>
                                             <input type="hidden" name="_subject" value="Nowe zapytanie o tort - Tortalia" />
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                <input required name="name" type="text" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" placeholder="Imię i Nazwisko" />
-                                                <input required name="email" type="email" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" placeholder="Twój adres e-mail" />
+                                                <input required name="name" type="text" className="w-full p-4 rounded-xl border border-green-100 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-100 transition-all bg-gray-50 shadow-sm" placeholder="Imię i Nazwisko" />
+                                                <input required name="email" type="email" className="w-full p-4 rounded-xl border border-green-100 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-100 transition-all bg-gray-50 shadow-sm" placeholder="Twój adres e-mail" />
                                             </div>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                <input required name="phone" type="tel" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" placeholder="Numer telefonu" />
-                                                <input required name="date" type="date" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white text-gray-400 shadow-sm" />
+                                                <input required name="phone" type="tel" className="w-full p-4 rounded-xl border border-green-100 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-100 transition-all bg-gray-50 shadow-sm" placeholder="Numer telefonu" />
+                                                <input required name="date" type="date" className="w-full p-4 rounded-xl border border-green-100 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-100 transition-all bg-gray-50 text-gray-500 shadow-sm" />
                                             </div>
-                                            <textarea required name="message" className="w-full p-4 rounded-xl border-none ring-1 ring-rose-200 outline-none focus:ring-2 focus:ring-rose-400 transition-all bg-white shadow-sm" rows="4" placeholder="Opisz swój wymarzony tort (okazja, ilość osób, smak)..."></textarea>
-                                            <button disabled={formStatus === 'sending'} type="submit" className={`w-full bg-rose-500 text-white font-bold py-5 rounded-xl shadow-lg shadow-rose-200 transition-all active:scale-95 flex items-center justify-center gap-2 ${formStatus === 'sending' ? 'opacity-70 cursor-not-allowed' : 'hover:bg-rose-600 hover:-translate-y-0.5'}`}>
-                                                {formStatus === 'sending' ? 'Wysyłanie...' : 'Zapisz się już dziś!'}
+                                            <textarea required name="message" className="w-full p-4 rounded-xl border border-green-100 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-100 transition-all bg-gray-50 shadow-sm" rows="4" placeholder="Opisz swój wymarzony tort (okazja, ilość osób, smak)..."></textarea>
+                                            <button disabled={formStatus === 'sending'} type="submit" className={`w-full bg-green-600 text-white font-bold py-5 rounded-xl shadow-lg shadow-green-200 transition-all active:scale-95 flex items-center justify-center gap-2 ${formStatus === 'sending' ? 'opacity-70 cursor-not-allowed' : 'hover:bg-green-700 hover:-translate-y-0.5'}`}>
+                                                {formStatus === 'sending' ? 'Wysyłanie...' : 'Zapytaj o ofertę'}
                                             </button>
                                         </form>
                                     )}
@@ -421,7 +483,7 @@
                     <footer className="py-16 bg-gray-900 text-gray-400">
                         <div className="max-w-6xl mx-auto px-4 text-center space-y-10">
                             <div className="flex justify-center items-center gap-3 text-white">
-                                <Icon name="Cake" className="text-rose-400" size={28} />
+                                <Icon name="Cake" className="text-green-500" size={28} />
                                 <span className="text-3xl font-serif font-bold tracking-tight">Tortalia</span>
                             </div>
                             <div className="max-w-md mx-auto text-center">
@@ -429,7 +491,7 @@
                                 <p className="text-[11px] uppercase tracking-[0.4em] font-medium opacity-60">Spraw prezent, który wywoła prawdziwy uśmiech.</p>
                             </div>
                             <div className="flex gap-8 justify-center">
-                                <a href="https://instagram.com/_tortalia" target="_blank" className="hover:text-rose-400 transition-colors transform hover:scale-110"><Icon name="Instagram" size={24} /></a>
+                                <a href="https://instagram.com/_tortalia" target="_blank" className="hover:text-green-400 transition-colors transform hover:scale-110"><Icon name="Instagram" size={24} /></a>
                             </div>
                             <div className="pt-10 border-t border-gray-800/50 text-center text-[10px] uppercase tracking-[0.2em] opacity-30">
                                 &copy; 2025 Tortalia. Wszystkie prawa zastrzeżone.
@@ -444,4 +506,5 @@
         root.render(<App />);
     </script>
 </body>
+</html>
 </html>
